@@ -1,225 +1,235 @@
-# Simple-calculator.html
-a simple calculator project with html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+# Advanced Calculator 🧮
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+A powerful, feature-rich calculator web application with scientific functions, dark mode, history tracking, and memory operations.
 
-        .calculator {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            width: 320px;
-        }
+## ✨ Features
 
-        .display {
-            background: #222;
-            color: #fff;
-            font-size: 2.5em;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: right;
-            margin-bottom: 20px;
-            min-height: 60px;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
+### 🎯 Core Features
+- ✅ **Basic Arithmetic** - Addition, Subtraction, Multiplication, Division
+- ✅ **Decimal Support** - Full decimal number support
+- ✅ **Backspace Function** - Delete last digit
+- ✅ **Clear Display (AC)** - Reset calculator
 
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
+### 🔬 Scientific Functions
+- ✅ **Square Root (√x)** - Calculate square root
+- ✅ **Square (x²)** - Calculate square of a number
+- ✅ **Cube (x³)** - Calculate cube of a number
+- ✅ **Power (x^y)** - Raise to any power
+- ✅ **Trigonometric** - sin, cos, tan (in degrees)
+- ✅ **Logarithmic** - log (base 10), ln (natural log)
+- ✅ **Factorial (n!)** - Calculate factorial
+- ✅ **Reciprocal (1/x)** - Calculate reciprocal
+- ✅ **Absolute Value (|x|)** - Get absolute value
+- ✅ **Percentage (%)** - Calculate percentages
+- ✅ **Constants** - π (Pi), e (Euler's number)
 
-        button {
-            padding: 20px;
-            font-size: 1.5em;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s ease;
-        }
+### 💾 Memory Functions
+- ✅ **M+** - Add current value to memory
+- ✅ **M−** - Subtract current value from memory
+- ✅ **MR** - Recall value from memory
+- ✅ **MC** - Clear memory
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+### 📜 History & Tracking
+- ✅ **Calculation History** - Keep track of all calculations
+- ✅ **History Panel** - Slide-out panel showing history
+- ✅ **Restore from History** - Click any history item to restore result
+- ✅ **Persistent History** - History saved in local storage
+- ✅ **Clear History** - Delete all history with one click
 
-        button:active {
-            transform: translateY(0);
-        }
+### 🎨 User Interface
+- ✅ **Dark Mode** - Eye-friendly dark theme
+- ✅ **Light Mode** - Classic light theme
+- ✅ **Theme Toggle** - Easy theme switching
+- ✅ **Mode Switching** - Switch between Basic and Scientific modes
+- ✅ **Smooth Animations** - Polished button interactions
+- ✅ **Sound Effects** - Optional click feedback
 
-        .number, .decimal {
-            background: #f0f0f0;
-            color: #333;
-        }
+### ⌨️ Input Methods
+- ✅ **Mouse/Touch** - Click buttons
+- ✅ **Keyboard Support** - Full keyboard control:
+  - `0-9` - Number input
+  - `+, -, *, /` - Operators
+  - `.` - Decimal point
+  - `Enter` or `=` - Calculate
+  - `Backspace` - Delete last digit
+  - `Escape` - Clear display
 
-        .number:hover {
-            background: #e0e0e0;
-        }
+### 📱 Responsive Design
+- ✅ **Desktop** - Optimized for desktop screens
+- ✅ **Tablet** - Perfect tablet experience
+- ✅ **Mobile** - Fully responsive mobile version
+- ✅ **Touch Friendly** - Large buttons for easy tapping
 
-        .operator {
-            background: #667eea;
-            color: white;
-        }
+### 💾 Persistent Data
+- ✅ **Theme Preference** - Saved in local storage
+- ✅ **Calculation History** - Kept in browser storage
+- ✅ **Memory Value** - Memory state persists
 
-        .operator:hover {
-            background: #5568d3;
-        }
+## 🚀 Getting Started
 
-        .equals {
-            background: #48bb78;
-            color: white;
-            grid-column: span 2;
-        }
+### Option 1: Direct Usage
+1. Clone the repository:
+```bash
+git clone https://github.com/codewithrashi07/Simple-calculator.html.git
+cd Simple-calculator.html
+```
 
-        .equals:hover {
-            background: #38a169;
-        }
+2. Open `index.html` in your browser:
+```bash
+# On Mac
+open index.html
 
-        .clear {
-            background: #f56565;
-            color: white;
-            grid-column: span 2;
-        }
+# On Windows
+start index.html
 
-        .clear:hover {
-            background: #e53e3e;
-        }
-    </style>
-</head>
-<body>
-    <div class="calculator">
-        <div class="display" id="display">0</div>
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">AC</button>
-            <button class="operator" onclick="appendOperator('/')">÷</button>
-            <button class="operator" onclick="appendOperator('*')">×</button>
-            
-            <button class="number" onclick="appendNumber('7')">7</button>
-            <button class="number" onclick="appendNumber('8')">8</button>
-            <button class="number" onclick="appendNumber('9')">9</button>
-            <button class="operator" onclick="appendOperator('-')">−</button>
-            
-            <button class="number" onclick="appendNumber('4')">4</button>
-            <button class="number" onclick="appendNumber('5')">5</button>
-            <button class="number" onclick="appendNumber('6')">6</button>
-            <button class="operator" onclick="appendOperator('+')">+</button>
-            
-            <button class="number" onclick="appendNumber('1')">1</button>
-            <button class="number" onclick="appendNumber('2')">2</button>
-            <button class="number" onclick="appendNumber('3')">3</button>
-            <button class="operator" onclick="toggleSign()">+/−</button>
-            
-            <button class="number" onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
-            <button class="decimal" onclick="appendDecimal()">.</button>
-            <button class="equals" onclick="calculate()">=</button>
-        </div>
-    </div>
+# On Linux
+xdg-open index.html
+```
 
-    <script>
-        let display = document.getElementById('display');
-        let currentInput = '0';
-        let operator = null;
-        let previousValue = null;
-        let shouldResetDisplay = false;
+Or simply double-click the `index.html` file!
 
-        function updateDisplay() {
-            display.textContent = currentInput;
-        }
+### Option 2: Live Demo
+Enable GitHub Pages from repository settings and access it via:
+`https://codewithrashi07.github.io/Simple-calculator.html/`
 
-        function appendNumber(num) {
-            if (shouldResetDisplay) {
-                currentInput = num;
-                shouldResetDisplay = false;
-            } else {
-                currentInput = currentInput === '0' ? num : currentInput + num;
-            }
-            updateDisplay();
-        }
+## 📂 Project Structure
 
-        function appendDecimal() {
-            if (shouldResetDisplay) {
-                currentInput = '0.';
-                shouldResetDisplay = false;
-            } else if (!currentInput.includes('.')) {
-                currentInput += '.';
-            }
-            updateDisplay();
-        }
+```
+Simple-calculator.html/
+├── index.html          # Main HTML file with calculator structure
+├── styles.css          # Complete styling with dark mode support
+├── script.js           # JavaScript logic and functionality
+└── README.md           # Documentation (you are here!)
+```
 
-        function appendOperator(op) {
-            if (operator !== null && !shouldResetDisplay) {
-                calculate();
-            }
-            previousValue = parseFloat(currentInput);
-            operator = op;
-            shouldResetDisplay = true;
-        }
+## 🛠️ Technologies Used
 
-        function toggleSign() {
-            currentInput = (parseFloat(currentInput) * -1).toString();
-            updateDisplay();
-        }
+- **HTML5** - Semantic markup
+- **CSS3** - Modern styling with flexbox/grid, animations, transitions
+- **Vanilla JavaScript** - Pure JS, no dependencies
+- **Local Storage API** - For persisting theme, history, and memory
 
-        function calculate() {
-            if (operator === null || previousValue === null) return;
+## 📖 How to Use
 
-            const current = parseFloat(currentInput);
-            let result;
+### Basic Mode
+1. Click number buttons to enter numbers
+2. Click operator buttons (+, −, ×, ÷)
+3. Enter the second number
+4. Press `=` to calculate
+5. Use `AC` to clear
 
-            switch (operator) {
-                case '+':
-                    result = previousValue + current;
-                    break;
-                case '-':
-                    result = previousValue - current;
-                    break;
-                case '*':
-                    result = previousValue * current;
-                    break;
-                case '/':
-                    result = current === 0 ? 0 : previousValue / current;
-                    break;
-                default:
-                    return;
-            }
+### Scientific Mode
+1. Click the "Scientific" button at the top
+2. Use advanced functions like √x, x², sin, cos, etc.
+3. Click on any function button to apply it
+4. Switch back to "Basic" mode anytime
 
-            currentInput = result.toString();
-            operator = null;
-            previousValue = null;
-            shouldResetDisplay = true;
-            updateDisplay();
-        }
+### History
+1. Click the 📋 History button
+2. See all your recent calculations
+3. Click any calculation to restore its result
+4. Click "Clear History" to delete all
 
-        function clearDisplay() {
-            currentInput = '0';
-            operator = null;
-            previousValue = null;
-            shouldResetDisplay = false;
-            updateDisplay();
-        }
+### Memory Functions
+1. **M+** - Adds current value to memory
+2. **M−** - Subtracts current value from memory
+3. **MR** - Shows and restores memory value
+4. **MC** - Clears memory to 0
+5. Memory display shows current value (if not zero)
 
-        updateDisplay();
-    </script>
-</body>
-</html>
+### Theme
+- Click the 🌙/☀️ button in top-right to toggle dark/light mode
+- Your preference is automatically saved
+
+## ⚡ Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `0-9` | Input numbers |
+| `.` | Add decimal point |
+| `+` | Addition |
+| `-` | Subtraction |
+| `*` | Multiplication |
+| `/` | Division |
+| `Enter` / `=` | Calculate result |
+| `Backspace` | Delete last digit |
+| `Escape` | Clear display |
+
+## 🎨 Customization
+
+### Change Color Scheme
+Edit `styles.css` and modify these colors:
+```css
+/* Primary color (operators) */
+background: #667eea;
+
+/* Success color (equals) */
+background: #48bb78;
+
+/* Error color (clear) */
+background: #f56565;
+```
+
+### Adjust Button Size
+Change padding values in `.btn` class:
+```css
+padding: 18px; /* Change this value */
+```
+
+### Modify Theme
+Edit the gradient in `body` background:
+```css
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+```
+
+## 🐛 Known Issues
+
+- None currently! Report any issues on GitHub.
+
+## 🔄 Updates & Improvements
+
+Recent updates include:
+- ✨ Full scientific calculator functions
+- ✨ Dark mode with persistent theme
+- ✨ Calculation history tracking
+- ✨ Memory operations (M+, M-, MR, MC)
+- ✨ Keyboard support
+- ✨ Responsive mobile design
+- ✨ Sound effects
+- ✨ Better error handling
+
+## 📈 Future Enhancements
+
+- [ ] Currency converter
+- [ ] Unit converter
+- [ ] Statistics functions
+- [ ] Expression evaluation (type entire equation)
+- [ ] Export calculations as PDF
+- [ ] More themes/color schemes
+
+## 🤝 Contributing
+
+Feel free to fork this project and submit pull requests for any improvements!
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+## 👨‍💻 Author
+
+**Rashi Yadav** (@codewithrashi07)
+
+---
+
+## 📞 Support
+
+If you encounter any issues or have suggestions, please:
+1. Check the [Issues](https://github.com/codewithrashi07/Simple-calculator.html/issues) page
+2. Create a new issue with detailed description
+3. Submit a pull request with improvements
+
+---
+
+**⭐ Don't forget to star this repository if you find it useful!**
+
+Happy calculating! 🎉
