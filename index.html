@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <!-- Theme Toggle -->
+        <div class="header">
+            <h1>Advanced Calculator</h1>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">🌙</button>
+        </div>
+
+        <!-- Main Calculator -->
+        <div class="calculator">
+            <!-- Display -->
+            <div class="display-container">
+                <div class="previous-operand" id="previousOperand"></div>
+                <div class="current-operand" id="currentOperand">0</div>
+            </div>
+
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" data-mode="basic">Basic</button>
+                <button class="mode-btn" data-mode="scientific">Scientific</button>
+            </div>
+
+            <!-- Buttons Container -->
+            <div class="buttons-wrapper">
+                <!-- Basic Buttons -->
+                <div class="buttons basic-mode">
+                    <button class="btn clear" onclick="clearDisplay()">AC</button>
+                    <button class="btn backspace" onclick="backspace()">⌫</button>
+                    <button class="btn operator" onclick="appendOperator('/')" title="Divide">÷</button>
+                    <button class="btn operator" onclick="appendOperator('*')" title="Multiply">×</button>
+
+                    <button class="btn number" onclick="appendNumber('7')">7</button>
+                    <button class="btn number" onclick="appendNumber('8')">8</button>
+                    <button class="btn number" onclick="appendNumber('9')">9</button>
+                    <button class="btn operator" onclick="appendOperator('-')" title="Subtract">−</button>
+
+                    <button class="btn number" onclick="appendNumber('4')">4</button>
+                    <button class="btn number" onclick="appendNumber('5')">5</button>
+                    <button class="btn number" onclick="appendNumber('6')">6</button>
+                    <button class="btn operator" onclick="appendOperator('+')" title="Add">+</button>
+
+                    <button class="btn number" onclick="appendNumber('1')">1</button>
+                    <button class="btn number" onclick="appendNumber('2')">2</button>
+                    <button class="btn number" onclick="appendNumber('3')">3</button>
+                    <button class="btn operator" onclick="toggleSign()" title="Toggle Sign">+/−</button>
+
+                    <button class="btn number" onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+                    <button class="btn decimal" onclick="appendDecimal()">.</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+                </div>
+
+                <!-- Scientific Buttons -->
+                <div class="buttons scientific-mode hidden">
+                    <!-- Row 1 -->
+                    <button class="btn clear" onclick="clearDisplay()">AC</button>
+                    <button class="btn backspace" onclick="backspace()">⌫</button>
+                    <button class="btn function" onclick="appendOperator('%')">%</button>
+                    <button class="btn operator" onclick="appendOperator('/')" title="Divide">÷</button>
+
+                    <!-- Row 2 -->
+                    <button class="btn function" onclick="scientificFunction('sqrt')">√x</button>
+                    <button class="btn function" onclick="scientificFunction('square')">x²</button>
+                    <button class="btn function" onclick="scientificFunction('cube')">x³</button>
+                    <button class="btn operator" onclick="appendOperator('*')" title="Multiply">×</button>
+
+                    <!-- Row 3 -->
+                    <button class="btn function" onclick="scientificFunction('sin')">sin</button>
+                    <button class="btn function" onclick="scientificFunction('cos')">cos</button>
+                    <button class="btn function" onclick="scientificFunction('tan')">tan</button>
+                    <button class="btn operator" onclick="appendOperator('-')" title="Subtract">−</button>
+
+                    <!-- Row 4 -->
+                    <button class="btn function" onclick="scientificFunction('log')">log</button>
+                    <button class="btn function" onclick="scientificFunction('ln')">ln</button>
+                    <button class="btn function" onclick="scientificFunction('pi')">π</button>
+                    <button class="btn operator" onclick="appendOperator('+')" title="Add">+</button>
+
+                    <!-- Row 5 -->
+                    <button class="btn function" onclick="scientificFunction('1/x')">1/x</button>
+                    <button class="btn function" onclick="scientificFunction('abs')">|x|</button>
+                    <button class="btn function" onclick="toggleSign()" title="Toggle Sign">+/−</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+
+                    <!-- Row 6 -->
+                    <button class="btn number" onclick="appendNumber('7')">7</button>
+                    <button class="btn number" onclick="appendNumber('8')">8</button>
+                    <button class="btn number" onclick="appendNumber('9')">9</button>
+                    <button class="btn decimal" onclick="appendDecimal()">.</button>
+
+                    <!-- Row 7 -->
+                    <button class="btn number" onclick="appendNumber('4')">4</button>
+                    <button class="btn number" onclick="appendNumber('5')">5</button>
+                    <button class="btn number" onclick="appendNumber('6')">6</button>
+                    <button class="btn function" onclick="scientificFunction('pow')">x^y</button>
+
+                    <!-- Row 8 -->
+                    <button class="btn number" onclick="appendNumber('1')">1</button>
+                    <button class="btn number" onclick="appendNumber('2')">2</button>
+                    <button class="btn number" onclick="appendNumber('3')">3</button>
+                    <button class="btn function" onclick="scientificFunction('factorial')">n!</button>
+
+                    <!-- Row 9 -->
+                    <button class="btn number" onclick="appendNumber('0')" style="grid-column: span 2;">0</button>
+                    <button class="btn function" onclick="scientificFunction('e')">e</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+
+            <!-- Memory & History Section -->
+            <div class="memory-history-section">
+                <!-- Memory Functions -->
+                <div class="memory-functions">
+                    <button class="memory-btn" onclick="memoryAdd()" title="Memory Add">M+</button>
+                    <button class="memory-btn" onclick="memorySubtract()" title="Memory Subtract">M−</button>
+                    <button class="memory-btn" onclick="memoryRecall()" title="Memory Recall">MR</button>
+                    <button class="memory-btn" onclick="memoryClear()" title="Memory Clear">MC</button>
+                    <span class="memory-display" id="memoryDisplay"></span>
+                </div>
+
+                <!-- History Toggle -->
+                <button class="history-toggle" id="historyToggle">📋 History</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Panel -->
+    <div class="history-panel hidden" id="historyPanel">
+        <div class="history-header">
+            <h3>Calculation History</h3>
+            <button class="close-history" onclick="toggleHistory()">✕</button>
+        </div>
+        <div class="history-list" id="historyList">
+            <p class="no-history">No calculations yet</p>
+        </div>
+        <button class="clear-history-btn" onclick="clearHistory()">Clear History</button>
+    </div>
+
+    <!-- Sound Effects (optional) -->
+    <audio id="clickSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
