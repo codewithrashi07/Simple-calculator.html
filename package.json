@@ -1,0 +1,35 @@
+{
+  "name": "advanced-calculator",
+  "version": "1.0.0",
+  "description": "A powerful web-based calculator with scientific functions, dark mode, history tracking, and memory operations.",
+  "main": "index.html",
+  "scripts": {
+    "start": "open index.html",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "calculator",
+    "scientific",
+    "web",
+    "javascript",
+    "html5",
+    "css3",
+    "responsive",
+    "dark-mode",
+    "history",
+    "memory"
+  ],
+  "author": "Rashi Yadav",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codewithrashi07/Simple-calculator.html"
+  },
+  "bugs": {
+    "url": "https://github.com/codewithrashi07/Simple-calculator.html/issues"
+  },
+  "homepage": "https://github.com/codewithrashi07/Simple-calculator.html",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
