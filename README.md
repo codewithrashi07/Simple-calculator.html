@@ -144,7 +144,7 @@ Works perfectly on:
 
 ### Option 2: Live Demo 
 
-Once GitHub Pages is enabled:
+Once GitHub Pages is enabled: 
 ```
 🌐 https://codewithrashi07.github.io/Simple-calculator.html/
 ```
