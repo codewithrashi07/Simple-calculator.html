@@ -142,7 +142,7 @@ Works perfectly on:
 
    Or simply **double-click** `index.html` file!
 
-### Option 2: Live Demo (Coming Soon)
+### Option 2: Live Demo 
 
 Once GitHub Pages is enabled:
 ```
