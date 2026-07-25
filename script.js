@@ -27,8 +27,10 @@ let currentMode = 'basic';
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     loadTheme();
+    loadMemory();
     loadHistory();
     setupEventListeners();
+    updateDisplay();
 });
 
 // ============================================
@@ -441,7 +443,3 @@ function playSound() {
         // Sound not supported
     }
 }
-
-// Initialize display
-updateDisplay();
-loadMemory();
