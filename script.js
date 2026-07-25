@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     // Mode switching
     modeBtns.forEach(btn => {
-        btn.addEventListener('click', () => switchMode(btn.dataset.mode));
+        btn.addEventListener('click', (e) => switchMode(e.target.dataset.mode));
     });
 
     // Theme toggle
@@ -144,10 +144,21 @@ function toggleSign() {
 
 function appendOperator(op) {
     playSound();
-    if (currentOperand === '') return;
-    if (previousOperand !== '') {
+    
+    // If no current operand, return
+    if (currentOperand === '' || currentOperand === '0') {
+        if (op === '-') {
+            currentOperand = '-';
+            updateDisplay();
+        }
+        return;
+    }
+    
+    // If there's already an operation, calculate it first
+    if (previousOperand !== '' && operation !== null) {
         calculate();
     }
+    
     operation = op;
     previousOperand = currentOperand;
     currentOperand = '';
@@ -156,10 +167,18 @@ function appendOperator(op) {
 
 function calculate() {
     playSound();
+    
+    // If there's no operation or no previous operand, do nothing
+    if (operation === null || previousOperand === '') {
+        return;
+    }
+    
     let computation;
     const prev = parseFloat(previousOperand);
-    const current = parseFloat(currentOperand);
-    if (isNaN(prev) || isNaN(current)) return;
+    const current = parseFloat(currentOperand) || 0;
+    
+    if (isNaN(prev)) return;
+    
     switch (operation) {
         case '+':
             computation = prev + current;
@@ -179,6 +198,7 @@ function calculate() {
         default:
             return;
     }
+    
     const expression = `${formatDisplay(previousOperand)} ${operation} ${formatDisplay(current)}`;
     addToHistory(expression, computation);
     currentOperand = computation.toString();
@@ -203,6 +223,12 @@ function clearDisplay() {
 function scientificFunction(func) {
     playSound();
     const current = parseFloat(currentOperand);
+    
+    if (isNaN(current)) {
+        console.log('Invalid number for scientific function');
+        return;
+    }
+    
     let result;
 
     switch (func) {
@@ -225,10 +251,10 @@ function scientificFunction(func) {
             result = Math.tan((current * Math.PI) / 180);
             break;
         case 'log':
-            result = Math.log10(current);
+            result = current <= 0 ? 0 : Math.log10(current);
             break;
         case 'ln':
-            result = Math.log(current);
+            result = current <= 0 ? 0 : Math.log(current);
             break;
         case 'pi':
             result = Math.PI;
@@ -237,7 +263,7 @@ function scientificFunction(func) {
             result = Math.E;
             break;
         case '1/x':
-            result = 1 / current;
+            result = current === 0 ? 0 : 1 / current;
             break;
         case 'abs':
             result = Math.abs(current);
@@ -249,7 +275,7 @@ function scientificFunction(func) {
             updateDisplay();
             return;
         case 'factorial':
-            result = factorial(current);
+            result = factorial(Math.floor(current));
             break;
         default:
             return;
@@ -265,6 +291,7 @@ function scientificFunction(func) {
 function factorial(n) {
     if (n < 0) return 0;
     if (n === 0 || n === 1) return 1;
+    if (n > 170) return Infinity; // Prevent overflow
     let result = 1;
     for (let i = 2; i <= n; i++) {
         result *= i;
@@ -367,7 +394,13 @@ function switchMode(mode) {
     playSound();
     currentMode = mode;
     modeBtns.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    
+    // Find and activate the correct button
+    modeBtns.forEach(btn => {
+        if (btn.dataset.mode === mode) {
+            btn.classList.add('active');
+        }
+    });
 
     if (mode === 'basic') {
         basicMode.classList.remove('hidden');
@@ -414,8 +447,13 @@ function saveHistory() {
 function loadHistory() {
     const saved = localStorage.getItem('calculatorHistory');
     if (saved) {
-        history = JSON.parse(saved);
-        updateHistoryDisplay();
+        try {
+            history = JSON.parse(saved);
+            updateHistoryDisplay();
+        } catch (e) {
+            console.log('Error loading history:', e);
+            history = [];
+        }
     }
 }
 
@@ -426,7 +464,7 @@ function saveMemory() {
 function loadMemory() {
     const saved = localStorage.getItem('calculatorMemory');
     if (saved) {
-        memory = parseFloat(saved);
+        memory = parseFloat(saved) || 0;
         updateMemoryDisplay();
     }
 }
